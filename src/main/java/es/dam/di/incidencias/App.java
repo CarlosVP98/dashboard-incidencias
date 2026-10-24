@@ -116,9 +116,6 @@ public class App extends Application {
         stage.show();
     }
 
-    // =====================================================================
-    // ① CABECERA
-    // =====================================================================
     private HBox crearCabecera() {
         Label titulo = new Label("Gestión de incidencias");
         titulo.getStyleClass().add("titulo-app");
@@ -137,9 +134,7 @@ public class App extends Application {
         return cabecera;
     }
 
-    // =====================================================================
-    // ② INDICADORES
-    // =====================================================================
+
     private HBox crearIndicadores() {
         // Creamos los Label de los números. De momento con el recuento
         // inicial; en la Fase 3 se actualizarán automáticamente.
@@ -181,9 +176,7 @@ public class App extends Application {
         return incidencias.stream().filter(i -> i.getEstado() == estado).count();
     }
 
-    // =====================================================================
-    // ③ BARRA DE BÚSQUEDA Y FILTRO
-    // =====================================================================
+
     private HBox crearBarraFiltros() {
         txtBuscar = new TextField();
         txtBuscar.setPromptText("Buscar por título, descripción o categoría...");
@@ -207,9 +200,7 @@ public class App extends Application {
         return barra;
     }
 
-    // =====================================================================
-    // ④ ZONA CENTRAL: TABLA + DETALLE
-    // =====================================================================
+
     private SplitPane crearZonaCentral() {
         // SplitPane: dos paneles con una barra en medio que el usuario puede arrastrar
         SplitPane split = new SplitPane(crearTabla(), crearPanelDetalle());
@@ -315,9 +306,7 @@ public class App extends Application {
         return campo;
     }
 
-    // =====================================================================
-    // ⑤ BARRA DE ESTADO
-    // =====================================================================
+
     private HBox crearBarraEstado() {
         lblMensaje = new Label("Listo");
         lblMensaje.getStyleClass().add("mensaje");
@@ -333,10 +322,6 @@ public class App extends Application {
         return barra;
     }
 
-    /** Método main: lanza la aplicación JavaFX. */
-        // =====================================================================
-    // EVENTOS (Fase 3)
-    // =====================================================================
 
     /** Asigna a cada control lo que tiene que hacer. */
     private void configurarEventos() {
