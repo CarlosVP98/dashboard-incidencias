@@ -70,7 +70,6 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 
 ## Entrada 5 — Formulario de nueva incidencia (Fase 3)
 
-> ⚠ Revisar y completar quien hizo el formulario: sobre todo la herramienta, el prompt exacto y lo que se aprendió.
 
 | Campo | Contenido |
 |---|---|
