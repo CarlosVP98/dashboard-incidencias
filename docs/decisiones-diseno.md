@@ -63,3 +63,25 @@ Este documento recoge las decisiones de diseño tomadas antes de programar (Fase
 **Decisión:** colores, tamaños de letra, márgenes y bordes se definen en un archivo `styles.css` mediante clases (`.kpi-card`, `.kpi-value`, `.estado-abierta`, etc.). El código Java solo asigna las clases.
 
 **Justificación:** separa la presentación de la lógica, como pide el enunciado. Si se quiere cambiar un color, se toca un solo archivo, y todos los elementos del mismo tipo se ven igual, lo que garantiza la consistencia.
+
+---
+
+# Decisiones tomadas durante la implementación (Fase 3)
+
+## 10. Avisar cuando el estado elegido es el mismo que ya tenía
+
+**Decisión:** si el usuario pulsa "Aplicar cambio" sin haber elegido un estado distinto al actual, no se modifica nada y la barra de estado muestra "La incidencia #N ya estaba en …". Si el cambio se aplica, se muestra "✔ Incidencia #N cambiada a …".
+
+**Justificación:** sin este aviso, pulsar el botón no produciría ningún efecto visible y el usuario no sabría si la acción ha funcionado. Así siempre recibe una respuesta, sea cual sea el caso.
+
+## 11. El desplegable de "Cambiar estado" muestra el estado actual al seleccionar
+
+**Decisión:** al seleccionar una fila, el `ComboBox` de "Cambiar estado" se coloca automáticamente en el estado que ya tiene la incidencia.
+
+**Justificación:** el usuario ve de dónde parte antes de cambiar nada, y evita aplicar por error un estado que no quería.
+
+## 12. Filtrar sin borrar datos y conservar la ordenación
+
+**Decisión:** la búsqueda y el filtro no eliminan incidencias de la lista; la tabla muestra una vista filtrada (`FilteredList`). Además, la tabla se puede seguir ordenando pulsando en la cabecera de cualquier columna (`SortedList`).
+
+**Justificación:** al limpiar los filtros reaparecen todas las incidencias sin perder ninguna, y los indicadores de arriba siempre muestran los totales reales, no solo lo que se ve en la tabla. Ordenar por columna (por ejemplo, por prioridad) ayuda a localizar rápidamente lo más urgente.

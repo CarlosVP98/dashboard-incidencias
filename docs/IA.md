@@ -49,3 +49,37 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 | **Qué modificamos** | _(completar)_ |
 | **Cómo validamos la respuesta** | _(completar: p. ej. ejecutamos `mvn javafx:run`, comparamos la ventana con el wireframe y la redimensionamos para ver que la tabla se estira)_ |
 | **Qué hemos aprendido** | _(completar: p. ej. qué es un BorderPane, para qué sirve HBox.setHgrow, cómo se enlaza el CSS con getStyleClass)_ |
+
+---
+
+## Entrada 4 — Funcionalidad: selección, cambio de estado, indicadores y filtros (Fase 3)
+
+| Campo | Contenido |
+|---|---|
+| **Fecha** | 24/10/2026 |
+| **Problema que queríamos resolver** | Hacer que la interfaz de la Fase 2 funcionara: ver el detalle de la incidencia seleccionada, cambiar su estado, que los indicadores se actualizaran solos y poder buscar por texto y filtrar por estado. |
+| **Herramienta utilizada** | Claude (Anthropic) |
+| **Prompt o consulta realizada** | Le pedimos que nos guiara paso a paso, una funcionalidad cada vez, diciéndonos qué código añadir en `App.java` y `DatosEjemplo.java` y explicando qué hace cada parte. |
+| **Resumen de la respuesta** | Nos explicó y nos dio el código para: (1) un *listener* sobre `selectedItemProperty()` de la tabla que rellena el panel de detalle; (2) `setOnAction` en el botón "Aplicar cambio" que cambia la propiedad `estado`; (3) una `ObservableList` con *extractor* que avisa cuando cambia el estado de una incidencia, y un `ListChangeListener` que recalcula los indicadores; (4) una `FilteredList` con `setPredicate` para la búsqueda y el filtro, envuelta en una `SortedList` para conservar la ordenación por columnas. |
+| **Qué parte utilizamos** | Todo, escribiéndolo nosotros en el código paso a paso. |
+| **Qué modificamos** | _(completar)_ |
+| **Cómo validamos la respuesta** | Probamos cada paso por separado con `mvn javafx:run` antes de pasar al siguiente. Al principio el botón "Aplicar cambio" no hacía nada (la barra seguía diciendo "Listo"): vimos que se nos había olvidado copiar el método `aplicarCambioEstado()`. Comprobamos que al cambiar una incidencia de "Abierta" a "En proceso" el contador de abiertas bajaba y el de en proceso subía, y que el buscador y el filtro reducían las filas y el texto "Mostrando X de 12". |
+| **Qué hemos aprendido** | Qué es un *listener* y una lambda; que las propiedades JavaFX avisan cuando cambian y por eso la tabla se actualiza sola; que una lista normal no avisa si cambia algo *dentro* de un elemento y hace falta un extractor; que filtrar no consiste en borrar datos sino en mostrar una "vista" de ellos. _(ampliar con vuestras palabras)_ |
+
+---
+
+## Entrada 5 — Formulario de nueva incidencia (Fase 3)
+
+> ⚠ Esta entrada la tiene que completar quien hizo el formulario. Si no se usó IA para esta parte, se puede borrar entera.
+
+| Campo | Contenido |
+|---|---|
+| **Fecha** | 24/10/2026 |
+| **Problema que queríamos resolver** | Permitir crear una incidencia nueva mediante un formulario, validando los campos obligatorios. |
+| **Herramienta utilizada** | _(completar)_ |
+| **Prompt o consulta realizada** | _(completar)_ |
+| **Resumen de la respuesta** | _(completar)_ |
+| **Qué parte utilizamos** | _(completar)_ |
+| **Qué modificamos** | _(completar)_ |
+| **Cómo validamos la respuesta** | _(completar: p. ej. creamos una incidencia y comprobamos que aparece en la tabla, que el TOTAL sube y que no deja guardar sin título)_ |
+| **Qué hemos aprendido** | _(completar)_ |
