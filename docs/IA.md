@@ -75,10 +75,12 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 |---|---|
 | **Fecha** | 24/10/2026 |
 | **Problema que queríamos resolver** | Permitir crear una incidencia nueva mediante un formulario, validando los campos obligatorios, y que la tabla, los indicadores y el contador se actualizaran al crearla. |
-| **Herramienta utilizada** | _(completar)_ |
-| **Prompt o consulta realizada** | _(completar)_ |
+| **Herramienta utilizada** | Claude (Anthropic) |
+| **Prompt o consulta realizada** | ¿Cómo puedo hacer una ventana emergente o diálogo en JavaFX para añadir una incidencia nueva? Necesito que pida título, categoría, prioridad y descripción, que compruebe que no estén vacíos antes de cerrarse y que al guardarla se actualice la tabla y los contadores de la pantalla principal. |
 | **Resumen de la respuesta** | Propuso un `Dialog<Incidencia>` modal con los botones "Crear incidencia" y "Cancelar" y un `GridPane` con Título, Categoría, Prioridad (por defecto Media) y Descripción. La validación se hace con un `addEventFilter` sobre el botón de crear: si falta un campo obligatorio, se muestra un mensaje con ⚠ y `consume()` evita que el diálogo se cierre. `setResultConverter` construye la incidencia (estado Abierta, fecha de hoy, id = mayor id + 1). Al añadirla, se limpian los filtros si la ocultan y se selecciona en la tabla. Añadió estilos para el diálogo en `styles.css`. |
-| **Qué parte utilizamos** | _(completar)_ |
-| **Qué modificamos** | _(completar)_ |
-| **Cómo validamos la respuesta** | _(completar: p. ej. intentamos crear sin título / sin categoría / sin descripción y comprobamos que no deja y avisa; creamos una válida y comprobamos que aparece seleccionada, que TOTAL y ABIERTAS suben 1 y que el contador pasa a "Mostrando 13 de 13")_ |
-| **Qué hemos aprendido** | _(completar: p. ej. qué es un diálogo modal, para qué sirve `showAndWait()`, cómo `consume()` cancela un evento, para qué sirve `setResultConverter`)_ |
+| **Qué parte utilizamos** | La estructura básica de la clase Dialog con un contenedor tipo GridPane para colocar los campos de texto y los desplegables de manera ordenada. |
+| **Qué modificamos** | Cambiamos los nombres de los campos y las opciones de los ComboBox (categorías y prioridades) para que encajaran exactamente con los nombres de las variables y enumerados que ya teníamos creados en nuestro proyecto. |
+| **Cómo validamos la respuesta** | Probamos a darle al botón de crear dejando campos vacíos para comprobar que saltaba el aviso y la ventana no se cerraba.
+Después, rellenamos todo bien, le dimos a aceptar y comprobamos que la incidencia aparecía seleccionada en la tabla, que los contadores de "Total" y "Abiertas" subían uno, y que el texto inferior indicaba correctamente el nuevo total de elementos.|
+| **Qué hemos aprendido** | A ver cómo funcionan los diálogos modales y para qué sirve bloquear la pantalla con showAndWait().
+A usar consume() dentro de un filtro de eventos para frenar el cierre de la ventana si la validación de los campos obligatorios falla. |
