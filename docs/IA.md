@@ -70,16 +70,16 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 
 ## Entrada 5 — Formulario de nueva incidencia (Fase 3)
 
-> ⚠ Esta entrada la tiene que completar quien hizo el formulario. Si no se usó IA para esta parte, se puede borrar entera.
+> ⚠ Revisar y completar quien hizo el formulario: sobre todo la herramienta, el prompt exacto y lo que se aprendió.
 
 | Campo | Contenido |
 |---|---|
 | **Fecha** | 24/10/2026 |
-| **Problema que queríamos resolver** | Permitir crear una incidencia nueva mediante un formulario, validando los campos obligatorios. |
+| **Problema que queríamos resolver** | Permitir crear una incidencia nueva mediante un formulario, validando los campos obligatorios, y que la tabla, los indicadores y el contador se actualizaran al crearla. |
 | **Herramienta utilizada** | _(completar)_ |
 | **Prompt o consulta realizada** | _(completar)_ |
-| **Resumen de la respuesta** | _(completar)_ |
+| **Resumen de la respuesta** | Propuso un `Dialog<Incidencia>` modal con los botones "Crear incidencia" y "Cancelar" y un `GridPane` con Título, Categoría, Prioridad (por defecto Media) y Descripción. La validación se hace con un `addEventFilter` sobre el botón de crear: si falta un campo obligatorio, se muestra un mensaje con ⚠ y `consume()` evita que el diálogo se cierre. `setResultConverter` construye la incidencia (estado Abierta, fecha de hoy, id = mayor id + 1). Al añadirla, se limpian los filtros si la ocultan y se selecciona en la tabla. Añadió estilos para el diálogo en `styles.css`. |
 | **Qué parte utilizamos** | _(completar)_ |
 | **Qué modificamos** | _(completar)_ |
-| **Cómo validamos la respuesta** | _(completar: p. ej. creamos una incidencia y comprobamos que aparece en la tabla, que el TOTAL sube y que no deja guardar sin título)_ |
-| **Qué hemos aprendido** | _(completar)_ |
+| **Cómo validamos la respuesta** | _(completar: p. ej. intentamos crear sin título / sin categoría / sin descripción y comprobamos que no deja y avisa; creamos una válida y comprobamos que aparece seleccionada, que TOTAL y ABIERTAS suben 1 y que el contador pasa a "Mostrando 13 de 13")_ |
+| **Qué hemos aprendido** | _(completar: p. ej. qué es un diálogo modal, para qué sirve `showAndWait()`, cómo `consume()` cancela un evento, para qué sirve `setResultConverter`)_ |

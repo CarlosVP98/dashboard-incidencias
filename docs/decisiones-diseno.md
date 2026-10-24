@@ -48,9 +48,17 @@ Este documento recoge las decisiones de diseño tomadas antes de programar (Fase
 
 ## 7. Alta de incidencias en un diálogo modal con validación
 
-**Decisión:** el botón "+ Nueva incidencia" (arriba a la derecha) abre un `Dialog` con un formulario en `GridPane` (etiqueta a la izquierda, campo a la derecha). Los campos obligatorios llevan asterisco. Si falta el título, aparece un mensaje de error y no se permite guardar.
+**Decisión:** el botón "+ Nueva incidencia" (arriba a la derecha) abre un `Dialog` con un formulario en `GridPane` (etiqueta a la izquierda, campo a la derecha). Los campos obligatorios llevan asterisco. Si falta algún dato obligatorio, aparece un mensaje de error y no se permite guardar.
 
 **Justificación:** crear una incidencia es una acción puntual. Un diálogo la separa de la pantalla principal sin perder el contexto. El `GridPane` alinea etiquetas y campos en columnas, lo que da consistencia. Validar antes de guardar evita incidencias vacías y explica al usuario qué ha hecho mal.
+
+**Cambio respecto al diseño inicial (Fase 3):** al implementarlo ajustamos estos detalles:
+
+- **Campos obligatorios:** son *Título*, *Categoría* y *Descripción* (en el wireframe solo el título). Una incidencia sin categoría no se puede filtrar bien, y sin descripción el técnico no sabe qué pasa.
+- **La prioridad no es obligatoria:** viene ya puesta en *Media*, un valor razonable por defecto que el usuario puede cambiar.
+- **El botón se llama "Crear incidencia"** en vez de "Guardar", porque describe exactamente qué ocurre al pulsarlo.
+- **Al haber un error**, el cursor salta al campo que falta (`requestFocus`) y el mensaje lleva el símbolo ⚠ además del color rojo, para no depender solo del color.
+- **Una incidencia nueva siempre empieza en estado "Abierta"** y con la fecha de hoy, así que esos dos campos no se piden.
 
 ## 8. Barra de estado para el feedback
 
@@ -85,3 +93,9 @@ Este documento recoge las decisiones de diseño tomadas antes de programar (Fase
 **Decisión:** la búsqueda y el filtro no eliminan incidencias de la lista; la tabla muestra una vista filtrada (`FilteredList`). Además, la tabla se puede seguir ordenando pulsando en la cabecera de cualquier columna (`SortedList`).
 
 **Justificación:** al limpiar los filtros reaparecen todas las incidencias sin perder ninguna, y los indicadores de arriba siempre muestran los totales reales, no solo lo que se ve en la tabla. Ordenar por columna (por ejemplo, por prioridad) ayuda a localizar rápidamente lo más urgente.
+
+## 13. Tras crear una incidencia, se muestra y se selecciona
+
+**Decisión:** al crear una incidencia, se selecciona automáticamente en la tabla (con lo que aparece su detalle a la derecha) y la tabla se desplaza hasta ella. Si los filtros activos la ocultarían, se limpian. La barra de estado muestra "✔ Incidencia #N creada: …".
+
+**Justificación:** el usuario comprueba al instante que la incidencia se ha creado bien. Si la nueva incidencia quedara oculta por un filtro, parecería que no se ha guardado.
