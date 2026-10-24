@@ -1,4 +1,5 @@
 package es.dam.di.incidencias;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;//Este import sirve para poner la fecha en formato español (21/10/2026)
 
 
@@ -13,18 +14,27 @@ import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -333,6 +343,8 @@ public class App extends Application {
         );
            // Al pulsar "Aplicar cambio", cambiamos el estado de la seleccionada
         btnAplicarEstado.setOnAction(evento -> aplicarCambioEstado());
+        // Al pulsar "+ Nueva incidencia", abrimos el formulario de alta
+        btnNueva.setOnAction(evento -> abrirFormularioNueva());
         // Cada vez que cambie la lista (o el estado de alguna incidencia),
         // recalculamos los números de las tarjetas
         incidencias.addListener((ListChangeListener<Incidencia>) cambio -> actualizarIndicadores());
@@ -353,6 +365,156 @@ public class App extends Application {
         // cambia la vista filtrada o la lista completa
         filtradas.addListener((ListChangeListener<Incidencia>) cambio -> actualizarContador());
         incidencias.addListener((ListChangeListener<Incidencia>) cambio -> actualizarContador());
+    }
+
+    /**
+     * Abre el formulario (ventana de diálogo) para crear una incidencia nueva.
+     *
+     * Un Dialog es una ventana modal: bloquea la ventana principal hasta que
+     * se cierra. Es ideal para formularios cortos, porque el usuario no pierde
+     * de vista la pantalla principal y no hay que programar otra Scene.
+     */
+    private void abrirFormularioNueva() {
+        Dialog<Incidencia> dialogo = new Dialog<>();
+        dialogo.setTitle("Nueva incidencia");
+        dialogo.setHeaderText("Rellena los datos de la nueva incidencia");
+        dialogo.initOwner(btnNueva.getScene().getWindow());
+
+        // Botones del formulario. OK_DONE y CANCEL_CLOSE le dicen a JavaFX
+        // cuál confirma y cuál cancela (y en qué orden colocarlos según el sistema).
+        ButtonType tipoCrear = new ButtonType("Crear incidencia", ButtonBar.ButtonData.OK_DONE);
+        ButtonType tipoCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogo.getDialogPane().getButtonTypes().addAll(tipoCrear, tipoCancelar);
+
+        // --- Campos del formulario ---
+        TextField txtTitulo = new TextField();
+        txtTitulo.setPromptText("Ej.: No funciona la impresora");
+
+        ComboBox<String> cmbCategoria = new ComboBox<>();
+        cmbCategoria.getItems().addAll(DatosEjemplo.CATEGORIAS);
+        cmbCategoria.setPromptText("Elige una categoría");
+        cmbCategoria.setMaxWidth(Double.MAX_VALUE);
+
+        ComboBox<Prioridad> cmbPrioridad = new ComboBox<>();
+        cmbPrioridad.getItems().addAll(Prioridad.values());
+        cmbPrioridad.setValue(Prioridad.MEDIA);   // valor por defecto razonable
+        cmbPrioridad.setMaxWidth(Double.MAX_VALUE);
+
+        TextArea txtDescripcion = new TextArea();
+        txtDescripcion.setPromptText("Describe el problema con el mayor detalle posible");
+        txtDescripcion.setWrapText(true);
+        txtDescripcion.setPrefRowCount(4);
+
+        // Mensaje de error: empieza oculto. Lleva un símbolo (⚠) además del
+        // color, para no depender solo del rojo (requisito de accesibilidad).
+        Label lblError = new Label();
+        lblError.getStyleClass().add("form-error");
+        lblError.setWrapText(true);
+        lblError.setVisible(false);
+        lblError.setManaged(false);   // oculto = no ocupa espacio
+
+        Label lblObligatorio = new Label("* Campo obligatorio");
+        lblObligatorio.getStyleClass().add("form-ayuda");
+
+        // --- Distribución: GridPane (filas y columnas) ---
+        GridPane rejilla = new GridPane();
+        rejilla.getStyleClass().add("form-rejilla");
+        rejilla.setPadding(new Insets(10, 0, 0, 0));
+        rejilla.addRow(0, new Label("Título *"), txtTitulo);
+        rejilla.addRow(1, new Label("Categoría *"), cmbCategoria);
+        rejilla.addRow(2, new Label("Prioridad"), cmbPrioridad);
+        Label lblDescripcion = new Label("Descripción *");
+        GridPane.setValignment(lblDescripcion, VPos.TOP);   // la etiqueta alineada arriba, junto al área de texto
+        rejilla.addRow(3, lblDescripcion, txtDescripcion);
+        rejilla.add(lblObligatorio, 1, 4);
+        rejilla.add(lblError, 0, 5, 2, 1);   // ocupa las 2 columnas
+
+        // La 1ª columna se ajusta al texto; la 2ª se estira con la ventana
+        ColumnConstraints colEtiquetas = new ColumnConstraints();
+        ColumnConstraints colCampos = new ColumnConstraints();
+        colCampos.setHgrow(Priority.ALWAYS);
+        rejilla.getColumnConstraints().addAll(colEtiquetas, colCampos);
+
+        dialogo.getDialogPane().setContent(rejilla);
+        // El diálogo es otra ventana: hay que darle también la hoja de estilos
+        dialogo.getDialogPane().getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        dialogo.getDialogPane().getStyleClass().add("dialogo-formulario");
+
+        // --- Validación ---
+        // Filtramos el clic en "Crear incidencia": si los datos no son válidos,
+        // consume() cancela el evento y el diálogo NO se cierra.
+        Button botonCrear = (Button) dialogo.getDialogPane().lookupButton(tipoCrear);
+        botonCrear.addEventFilter(ActionEvent.ACTION, evento -> {
+            String error = validarFormulario(txtTitulo, cmbCategoria, txtDescripcion);
+            if (error != null) {
+                lblError.setText("⚠ " + error);
+                lblError.setVisible(true);
+                lblError.setManaged(true);
+                evento.consume();
+            }
+        });
+
+        // Qué devuelve el diálogo al cerrarse: la nueva Incidencia, o null si
+        // el usuario canceló. Una incidencia nueva siempre empieza "Abierta"
+        // y con la fecha de hoy.
+        dialogo.setResultConverter(boton -> {
+            if (boton != tipoCrear) {
+                return null;
+            }
+            return new Incidencia(
+                siguienteId(),
+                txtTitulo.getText().trim(),
+                txtDescripcion.getText().trim(),
+                cmbCategoria.getValue(),
+                cmbPrioridad.getValue(),
+                Estado.ABIERTA,
+                LocalDate.now());
+        });
+
+        // showAndWait() muestra el diálogo y espera. Si hay resultado, la añadimos.
+        dialogo.showAndWait().ifPresent(this::anadirIncidencia);
+    }
+
+    /** Comprueba los campos obligatorios. Devuelve el mensaje de error, o null si todo está bien. */
+    private String validarFormulario(TextField txtTitulo, ComboBox<String> cmbCategoria, TextArea txtDescripcion) {
+        if (txtTitulo.getText().isBlank()) {
+            txtTitulo.requestFocus();
+            return "El título es obligatorio.";
+        }
+        if (cmbCategoria.getValue() == null) {
+            cmbCategoria.requestFocus();
+            return "Elige una categoría.";
+        }
+        if (txtDescripcion.getText().isBlank()) {
+            txtDescripcion.requestFocus();
+            return "La descripción es obligatoria.";
+        }
+        return null;
+    }
+
+    /** Calcula el id de la siguiente incidencia: el mayor que existe + 1. */
+    private int siguienteId() {
+        return incidencias.stream().mapToInt(Incidencia::getId).max().orElse(0) + 1;
+    }
+
+    /** Añade la incidencia a la lista y avisa al usuario. */
+    private void anadirIncidencia(Incidencia nueva) {
+        // Al añadirla a la ObservableList, la tabla, los indicadores y el
+        // contador se actualizan solos gracias a los listeners de configurarEventos().
+        incidencias.add(nueva);
+
+        // Si los filtros activos la esconden, los limpiamos para que el usuario
+        // vea la incidencia que acaba de crear.
+        if (!filtradas.contains(nueva)) {
+            txtBuscar.clear();
+            cmbFiltroEstado.getSelectionModel().selectFirst();
+        }
+
+        // La seleccionamos: así se ve su detalle y queda marcada en la tabla
+        tabla.getSelectionModel().select(nueva);
+        tabla.scrollTo(nueva);
+
+        lblMensaje.setText("✔ Incidencia #" + nueva.getId() + " creada: \"" + nueva.getTitulo() + "\"");
     }
 
         /** Cambia el estado de la incidencia seleccionada al elegido en el desplegable. */

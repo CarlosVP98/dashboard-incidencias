@@ -6,7 +6,7 @@
  * asignan con  nodo.getStyleClass().add("nombre-clase").
  */
 
-/* ---------- Colores comunes (variables) ----------
+/* Colores comunes 
  * En JavaFX se pueden definir "colores con nombre" en .root y
  * reutilizarlos en todo el archivo. Si cambiamos uno aquí, cambia en
  * toda la aplicación (consistencia). */
@@ -179,5 +179,37 @@
 }
 
 .mensaje {
+    -fx-font-weight: bold;
+}
+
+/* ---------- Formulario "Nueva incidencia" ---------- */
+.dialogo-formulario {
+    -fx-background-color: -color-superficie;
+    -fx-padding: 8px 12px 12px 12px;
+}
+
+.dialogo-formulario .header-panel {
+    -fx-background-color: -color-superficie;
+}
+
+.dialogo-formulario .header-panel .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.form-rejilla {
+    -fx-hgap: 12px;
+    -fx-vgap: 12px;
+    -fx-min-width: 440px;
+}
+
+.form-ayuda {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-texto-suave;
+}
+
+/* El error lleva símbolo y texto: el rojo es solo un refuerzo */
+.form-error {
+    -fx-text-fill: -color-abierta;
     -fx-font-weight: bold;
 }
