@@ -219,7 +219,13 @@ public class App extends Application {
     }
 
     private TableView<Incidencia> crearTabla() {
-        tabla = new TableView<>(incidencias);
+        // Al principio la condición es "inc -> true": todas pasan el filtro
+        filtradas = new FilteredList<>(incidencias, inc -> true);
+
+        // SortedList permite ordenar al pulsar en la cabecera de una columna
+        SortedList<Incidencia> ordenadas = new SortedList<>(filtradas);
+        tabla = new TableView<>(ordenadas);
+        ordenadas.comparatorProperty().bind(tabla.comparatorProperty());
 
         // Cada columna necesita saber QUÉ dato mostrar de cada Incidencia.
         // Eso se indica con setCellValueFactory. ReadOnlyObjectWrapper
@@ -345,6 +351,23 @@ public class App extends Application {
         // Cada vez que cambie la lista (o el estado de alguna incidencia),
         // recalculamos los números de las tarjetas
         incidencias.addListener((ListChangeListener<Incidencia>) cambio -> actualizarIndicadores());
+        // Buscar: se filtra mientras se escribe, sin pulsar ningún botón
+        txtBuscar.textProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
+
+        // Filtro por estado: se filtra al elegir otra opción
+        cmbFiltroEstado.valueProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
+
+        // Limpiar: vaciamos el buscador y volvemos a "Todos".
+        // Esto dispara los dos listeners de arriba, que ya vuelven a filtrar.
+        btnLimpiar.setOnAction(evento -> {
+            txtBuscar.clear();
+            cmbFiltroEstado.getSelectionModel().selectFirst();
+        });
+
+        // El contador de abajo ("Mostrando X de Y") se actualiza cuando
+        // cambia la vista filtrada o la lista completa
+        filtradas.addListener((ListChangeListener<Incidencia>) cambio -> actualizarContador());
+        incidencias.addListener((ListChangeListener<Incidencia>) cambio -> actualizarContador());
     }
 
         /** Cambia el estado de la incidencia seleccionada al elegido en el desplegable. */
@@ -374,6 +397,31 @@ public class App extends Application {
         lblAbiertas.setText(String.valueOf(contar(Estado.ABIERTA)));
         lblEnProceso.setText(String.valueOf(contar(Estado.EN_PROCESO)));
         lblResueltas.setText(String.valueOf(contar(Estado.RESUELTA)));
+    }
+        /** Cambia la condición de la lista filtrada según el buscador y el filtro de estado. */
+    private void aplicarFiltros() {
+        String texto = txtBuscar.getText().trim().toLowerCase();
+        String filtroEstado = cmbFiltroEstado.getValue();
+
+        // setPredicate recibe la condición que debe cumplir cada incidencia
+        // para aparecer en la tabla (true = se muestra, false = se oculta)
+        filtradas.setPredicate(inc -> {
+            boolean cumpleEstado = filtroEstado == null
+                || filtroEstado.equals("Todos")
+                || inc.getEstado().toString().equals(filtroEstado);
+
+            boolean cumpleTexto = texto.isEmpty()
+                || inc.getTitulo().toLowerCase().contains(texto)
+                || inc.getDescripcion().toLowerCase().contains(texto)
+                || inc.getCategoria().toLowerCase().contains(texto);
+
+            return cumpleEstado && cumpleTexto;
+        });
+    }
+
+    /** Actualiza el texto "Mostrando X de Y incidencias" de la barra de estado. */
+    private void actualizarContador() {
+        lblContador.setText("Mostrando " + filtradas.size() + " de " + incidencias.size() + " incidencias");
     }
 
     /** Rellena el panel de la derecha con los datos de una incidencia. */
