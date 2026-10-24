@@ -1,4 +1,6 @@
 package es.dam.di.incidencias;
+import java.time.format.DateTimeFormatter;//Este import sirve para poner la fecha en formato español (21/10/2026)
+
 
 import es.dam.di.incidencias.model.DatosEjemplo;
 import es.dam.di.incidencias.model.Estado;
@@ -8,6 +10,9 @@ import es.dam.di.incidencias.model.Prioridad;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,8 +49,12 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    // Formato con el que se muestran las fechas: día/mes/año
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     // Lista con todas las incidencias (datos en memoria)
     private ObservableList<Incidencia> incidencias;
+    // Vista filtrada de la lista: solo las que cumplen la búsqueda y el filtro
+    private FilteredList<Incidencia> filtradas;
 
     // Controles que necesitaremos usar desde otros métodos en la Fase 3.
     // Los declaramos como atributos para poder acceder a ellos.
@@ -90,6 +99,9 @@ public class App extends Application {
         raiz.setTop(zonaSuperior);
         raiz.setCenter(crearZonaCentral());
         raiz.setBottom(crearBarraEstado());
+        // Una vez creados todos los controles, les asignamos su comportamiento
+        configurarEventos();
+        //Para poner un listener a la tabla, la tabla tiene que existir ya
 
         // La Scene es el "contenido" de la ventana. 1100x750 es el tamaño inicial.
         Scene scene = new Scene(raiz, 1100, 750);
@@ -316,6 +328,78 @@ public class App extends Application {
     }
 
     /** Método main: lanza la aplicación JavaFX. */
+        // =====================================================================
+    // EVENTOS (Fase 3)
+    // =====================================================================
+
+    /** Asigna a cada control lo que tiene que hacer. */
+    private void configurarEventos() {
+        // Cuando cambie la fila seleccionada, mostramos su detalle.
+        // (observable, anterior, seleccionada) son los 3 datos que nos da JavaFX:
+        // la propiedad que cambió, el valor antiguo y el valor nuevo.
+        tabla.getSelectionModel().selectedItemProperty().addListener(
+            (observable, anterior, seleccionada) -> mostrarDetalle(seleccionada)
+        );
+           // Al pulsar "Aplicar cambio", cambiamos el estado de la seleccionada
+        btnAplicarEstado.setOnAction(evento -> aplicarCambioEstado());
+        // Cada vez que cambie la lista (o el estado de alguna incidencia),
+        // recalculamos los números de las tarjetas
+        incidencias.addListener((ListChangeListener<Incidencia>) cambio -> actualizarIndicadores());
+    }
+
+        /** Cambia el estado de la incidencia seleccionada al elegido en el desplegable. */
+    private void aplicarCambioEstado() {
+        Incidencia inc = tabla.getSelectionModel().getSelectedItem();
+        Estado nuevoEstado = cmbNuevoEstado.getValue();
+
+        // Por seguridad: si falta algo, no hacemos nada
+        if (inc == null || nuevoEstado == null) {
+            return;
+        }
+
+        // Si ya tenía ese estado, avisamos en lugar de "cambiar" a lo mismo
+        if (inc.getEstado() == nuevoEstado) {
+            lblMensaje.setText("La incidencia #" + inc.getId() + " ya estaba en \"" + nuevoEstado.getTexto() + "\"");
+            return;
+        }
+
+        inc.setEstado(nuevoEstado);
+
+        // Feedback al usuario en la barra de abajo
+        lblMensaje.setText("✔ Incidencia #" + inc.getId() + " cambiada a \"" + nuevoEstado.getTexto() + "\"");
+    }
+        /** Vuelve a contar las incidencias y actualiza los números de las tarjetas. */
+    private void actualizarIndicadores() {
+        lblTotal.setText(String.valueOf(incidencias.size()));
+        lblAbiertas.setText(String.valueOf(contar(Estado.ABIERTA)));
+        lblEnProceso.setText(String.valueOf(contar(Estado.EN_PROCESO)));
+        lblResueltas.setText(String.valueOf(contar(Estado.RESUELTA)));
+    }
+
+    /** Rellena el panel de la derecha con los datos de una incidencia. */
+    private void mostrarDetalle(Incidencia inc) {
+        // Si no hay ninguna seleccionada (inc == null), dejamos el panel vacío
+        if (inc == null) {
+            lblDetalleTitulo.setText("Selecciona una incidencia de la tabla");
+            lblDetalleCategoria.setText("—");
+            lblDetalleFecha.setText("—");
+            lblDetalleDescripcion.setText("—");
+            cmbNuevoEstado.setValue(null);
+            btnAplicarEstado.setDisable(true);
+            return;
+        }
+
+        lblDetalleTitulo.setText(inc.getTitulo());
+        lblDetalleCategoria.setText(inc.getCategoria() + " · " + inc.getPrioridad());
+        lblDetalleFecha.setText(inc.getFechaAlta().format(FORMATO_FECHA));
+        lblDetalleDescripcion.setText(inc.getDescripcion());
+
+        // El desplegable de "Cambiar estado" empieza mostrando el estado actual
+        cmbNuevoEstado.setValue(inc.getEstado());
+
+        // Ya hay una incidencia seleccionada: activamos el botón
+        btnAplicarEstado.setDisable(false);
+    }
     public static void main(String[] args) {
         launch(args);
     }
