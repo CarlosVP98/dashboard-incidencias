@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" font-family="DejaVu Sans, Arial, sans-serif">
+  <rect width="1400" height="1000" fill="#ffffff"/>
+
+  <!-- ===================== VENTANA PRINCIPAL ===================== -->
+  <text x="40" y="38" font-size="20" font-weight="bold" fill="#222">Wireframe — Ventana principal (BorderPane)</text>
+  <rect x="40" y="55" width="900" height="900" fill="#fafafa" stroke="#333" stroke-width="2"/>
+
+  <!-- TOP: cabecera -->
+  <rect x="55" y="70" width="870" height="60" fill="#e6e6e6" stroke="#666" stroke-dasharray="6 4"/>
+  <text x="75" y="108" font-size="22" font-weight="bold" fill="#222">Gestión de incidencias</text>
+  <rect x="725" y="83" width="185" height="34" rx="4" fill="#bdbdbd" stroke="#333"/>
+  <text x="817" y="105" font-size="14" text-anchor="middle" fill="#111">+ Nueva incidencia</text>
+
+  <!-- KPIs -->
+  <g font-size="13" fill="#222">
+    <rect x="55" y="145" width="205" height="95" rx="6" fill="#fff" stroke="#333"/>
+    <text x="72" y="172">▣ TOTAL</text>
+    <text x="72" y="218" font-size="34" font-weight="bold">12</text>
+
+    <rect x="276" y="145" width="205" height="95" rx="6" fill="#fff" stroke="#333"/>
+    <text x="293" y="172">● ABIERTAS</text>
+    <text x="293" y="218" font-size="34" font-weight="bold">5</text>
+
+    <rect x="497" y="145" width="205" height="95" rx="6" fill="#fff" stroke="#333"/>
+    <text x="514" y="172">◐ EN PROCESO</text>
+    <text x="514" y="218" font-size="34" font-weight="bold">4</text>
+
+    <rect x="718" y="145" width="207" height="95" rx="6" fill="#fff" stroke="#333"/>
+    <text x="735" y="172">✔ RESUELTAS</text>
+    <text x="735" y="218" font-size="34" font-weight="bold">3</text>
+  </g>
+
+  <!-- Barra de búsqueda y filtro -->
+  <rect x="55" y="255" width="870" height="50" fill="#f0f0f0" stroke="#666" stroke-dasharray="6 4"/>
+  <rect x="70" y="263" width="430" height="34" rx="4" fill="#fff" stroke="#333"/>
+  <text x="82" y="285" font-size="14" fill="#888">🔍 Buscar por título, descripción o categoría...</text>
+  <text x="520" y="285" font-size="14" fill="#222">Estado:</text>
+  <rect x="580" y="263" width="190" height="34" rx="4" fill="#fff" stroke="#333"/>
+  <text x="592" y="285" font-size="14" fill="#222">Todos</text>
+  <text x="755" y="285" font-size="12" fill="#222">▼</text>
+  <rect x="785" y="263" width="125" height="34" rx="4" fill="#ddd" stroke="#333"/>
+  <text x="847" y="285" font-size="14" text-anchor="middle" fill="#222">Limpiar filtros</text>
+
+  <!-- CENTRO: tabla -->
+  <rect x="55" y="320" width="560" height="560" fill="#fff" stroke="#333"/>
+  <rect x="55" y="320" width="560" height="34" fill="#d6d6d6" stroke="#333"/>
+  <g font-size="13" font-weight="bold" fill="#222">
+    <text x="65" y="342">ID</text>
+    <text x="110" y="342">Título</text>
+    <text x="300" y="342">Categoría</text>
+    <text x="400" y="342">Prioridad</text>
+    <text x="495" y="342">Estado</text>
+  </g>
+  <g stroke="#aaa">
+    <line x1="100" y1="320" x2="100" y2="880"/>
+    <line x1="290" y1="320" x2="290" y2="880"/>
+    <line x1="390" y1="320" x2="390" y2="880"/>
+    <line x1="485" y1="320" x2="485" y2="880"/>
+  </g>
+  <g font-size="13" fill="#444">
+    <text x="65" y="378">1</text><text x="110" y="378">No funciona la impresora</text><text x="300" y="378">Hardware</text><text x="400" y="378">Alta</text><text x="495" y="378">● Abierta</text>
+    <rect x="56" y="390" width="558" height="30" fill="#cfcfcf"/>
+    <text x="65" y="410">2</text><text x="110" y="410">Sin acceso al correo</text><text x="300" y="410">Software</text><text x="400" y="410">Media</text><text x="495" y="410">◐ En proceso</text>
+    <text x="65" y="442">3</text><text x="110" y="442">Pedir ratones nuevos</text><text x="300" y="442">Material</text><text x="400" y="442">Baja</text><text x="495" y="442">✔ Resuelta</text>
+    <text x="65" y="474">…</text><text x="110" y="474">…</text>
+  </g>
+  <text x="335" y="700" font-size="14" text-anchor="middle" fill="#999">TableView (ocupa el espacio que sobra)</text>
+  <text x="620" y="406" font-size="12" fill="#c00">◄ fila seleccionada</text>
+
+  <!-- DERECHA: detalle -->
+  <rect x="630" y="320" width="295" height="560" fill="#fff" stroke="#333"/>
+  <text x="645" y="348" font-size="16" font-weight="bold" fill="#222">Detalle de la incidencia</text>
+  <line x1="645" y1="360" x2="910" y2="360" stroke="#999"/>
+  <g font-size="13" fill="#222">
+    <text x="645" y="388" font-weight="bold">Título</text>
+    <text x="645" y="406">Sin acceso al correo</text>
+    <text x="645" y="436" font-weight="bold">Categoría · Prioridad</text>
+    <text x="645" y="454">Software · Media</text>
+    <text x="645" y="484" font-weight="bold">Fecha de alta</text>
+    <text x="645" y="502">22/10/2026</text>
+    <text x="645" y="532" font-weight="bold">Descripción</text>
+    <rect x="645" y="542" width="265" height="110" fill="#f5f5f5" stroke="#aaa"/>
+    <text x="655" y="565" fill="#777">Texto largo con la</text>
+    <text x="655" y="583" fill="#777">descripción completa...</text>
+  </g>
+  <line x1="645" y1="672" x2="910" y2="672" stroke="#999"/>
+  <text x="645" y="698" font-size="14" font-weight="bold" fill="#222">Cambiar estado</text>
+  <rect x="645" y="710" width="265" height="34" rx="4" fill="#fff" stroke="#333"/>
+  <text x="657" y="732" font-size="14" fill="#222">En proceso</text>
+  <text x="893" y="732" font-size="12" fill="#222">▼</text>
+  <rect x="645" y="756" width="265" height="36" rx="4" fill="#bdbdbd" stroke="#333"/>
+  <text x="777" y="779" font-size="14" text-anchor="middle" fill="#111">Aplicar cambio</text>
+  <text x="777" y="830" font-size="12" text-anchor="middle" fill="#888">(deshabilitado si no hay</text>
+  <text x="777" y="846" font-size="12" text-anchor="middle" fill="#888">ninguna fila seleccionada)</text>
+
+  <!-- BOTTOM: barra de estado -->
+  <rect x="55" y="895" width="870" height="45" fill="#e6e6e6" stroke="#666" stroke-dasharray="6 4"/>
+  <text x="70" y="923" font-size="14" fill="#222">✔ Incidencia #2 cambiada a "En proceso"   |   Mostrando 12 de 12 incidencias</text>
+
+  <!-- Etiquetas de zonas -->
+  <g font-size="12" fill="#c00" font-weight="bold">
+    <text x="950" y="105">① TOP – cabecera (HBox)</text>
+    <text x="950" y="197">② TOP – indicadores (HBox de 4 tarjetas)</text>
+    <text x="950" y="285">③ TOP – búsqueda y filtro (HBox)</text>
+    <text x="950" y="500">④ CENTER – tabla + detalle (SplitPane)</text>
+    <text x="950" y="922">⑤ BOTTOM – barra de estado / feedback</text>
+  </g>
+
+  <!-- ===================== DIÁLOGO NUEVA INCIDENCIA ===================== -->
+  <text x="985" y="560" font-size="16" font-weight="bold" fill="#222">Diálogo modal: Nueva incidencia</text>
+  <rect x="985" y="575" width="380" height="380" fill="#fafafa" stroke="#333" stroke-width="2"/>
+  <rect x="985" y="575" width="380" height="34" fill="#d6d6d6" stroke="#333"/>
+  <text x="1000" y="597" font-size="14" font-weight="bold" fill="#222">Nueva incidencia</text>
+  <g font-size="13" fill="#222">
+    <text x="1000" y="637">Título *</text>
+    <rect x="1100" y="620" width="250" height="28" fill="#fff" stroke="#333"/>
+    <text x="1000" y="680">Categoría *</text>
+    <rect x="1100" y="663" width="250" height="28" fill="#fff" stroke="#333"/>
+    <text x="1335" y="682" font-size="11">▼</text>
+    <text x="1000" y="723">Prioridad *</text>
+    <rect x="1100" y="706" width="250" height="28" fill="#fff" stroke="#333"/>
+    <text x="1335" y="725" font-size="11">▼</text>
+    <text x="1000" y="766">Descripción</text>
+    <rect x="1100" y="749" width="250" height="100" fill="#fff" stroke="#333"/>
+    <text x="1000" y="875" fill="#c00" font-size="12">⚠ El título es obligatorio</text>
+  </g>
+  <rect x="1150" y="900" width="95" height="34" rx="4" fill="#ddd" stroke="#333"/>
+  <text x="1197" y="922" font-size="14" text-anchor="middle" fill="#222">Cancelar</text>
+  <rect x="1255" y="900" width="95" height="34" rx="4" fill="#bdbdbd" stroke="#333"/>
+  <text x="1302" y="922" font-size="14" text-anchor="middle" fill="#111">Guardar</text>
+  <text x="985" y="975" font-size="12" fill="#c00" font-weight="bold">⑥ Dialog con GridPane (etiqueta | campo)</text>
+</svg>

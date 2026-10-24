@@ -1,0 +1,183 @@
+/*
+ * Hoja de estilos de la aplicación.
+ *
+ * En JavaFX las propiedades CSS empiezan por "-fx-".
+ * Los selectores que empiezan por "." son clases de estilo: en Java se
+ * asignan con  nodo.getStyleClass().add("nombre-clase").
+ */
+
+/* ---------- Colores comunes (variables) ----------
+ * En JavaFX se pueden definir "colores con nombre" en .root y
+ * reutilizarlos en todo el archivo. Si cambiamos uno aquí, cambia en
+ * toda la aplicación (consistencia). */
+.root {
+    -color-fondo: #f4f6f9;
+    -color-superficie: #ffffff;
+    -color-borde: #d9dee5;
+    -color-texto: #1f2933;
+    -color-texto-suave: #616e7c;
+    -color-primario: #2563eb;
+    -color-primario-oscuro: #1d4ed8;
+
+    -color-abierta: #dc2626;
+    -color-proceso: #d97706;
+    -color-resuelta: #16a34a;
+
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    /* Color de texto por defecto de todos los controles (variable de JavaFX) */
+    -fx-text-base-color: -color-texto;
+}
+
+.raiz {
+    -fx-background-color: -color-fondo;
+}
+
+/* ---------- Zona superior ---------- */
+.zona-superior {
+    -fx-spacing: 14px;
+    -fx-padding: 16px 20px 8px 20px;
+}
+
+.cabecera {
+    -fx-spacing: 12px;
+}
+
+.titulo-app {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Botones ---------- */
+.boton-principal {
+    -fx-background-color: -color-primario;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-principal:hover {
+    -fx-background-color: -color-primario-oscuro;
+}
+
+.boton-secundario {
+    -fx-background-color: -color-superficie;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 7px 14px;
+    -fx-cursor: hand;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #eef1f5;
+}
+
+/* ---------- Tarjetas de indicadores ---------- */
+.indicadores {
+    -fx-spacing: 14px;
+}
+
+.kpi-tarjeta {
+    -fx-background-color: -color-superficie;
+    -fx-background-radius: 8px;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px 16px;
+    -fx-spacing: 4px;
+    /* Barra de color a la izquierda: la ponemos con un borde más grueso */
+    -fx-border-width: 1px 1px 1px 5px;
+}
+
+.kpi-texto {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-texto-suave;
+}
+
+.kpi-valor {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+/* Color de la barra lateral de cada tarjeta. El color es un apoyo:
+ * el estado también se indica con el símbolo y el texto. */
+.kpi-total     { -fx-border-color: -color-borde -color-borde -color-borde -color-primario; }
+.kpi-abiertas  { -fx-border-color: -color-borde -color-borde -color-borde -color-abierta; }
+.kpi-proceso   { -fx-border-color: -color-borde -color-borde -color-borde -color-proceso; }
+.kpi-resueltas { -fx-border-color: -color-borde -color-borde -color-borde -color-resuelta; }
+
+/* ---------- Barra de búsqueda y filtro ---------- */
+.barra-filtros {
+    -fx-spacing: 10px;
+    -fx-padding: 4px 0 4px 0;
+}
+
+.text-field, .combo-box {
+    -fx-pref-height: 32px;
+}
+
+/* ---------- Zona central ---------- */
+.zona-central {
+    -fx-padding: 8px 20px 12px 20px;
+    -fx-background-color: transparent;
+    -fx-box-border: transparent;
+}
+
+.table-view {
+    -fx-background-radius: 6px;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 6px;
+}
+
+.table-view .column-header {
+    -fx-font-weight: bold;
+}
+
+/* ---------- Panel de detalle ---------- */
+.panel-detalle {
+    -fx-background-color: -color-superficie;
+    -fx-border-color: -color-borde;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 16px;
+    -fx-spacing: 10px;
+}
+
+.titulo-seccion {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.detalle-campo {
+    -fx-spacing: 2px;
+}
+
+.detalle-nombre {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-texto-suave;
+}
+
+.detalle-valor {
+    -fx-font-size: 14px;
+}
+
+.detalle-descripcion {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 8px;
+    -fx-background-radius: 4px;
+}
+
+/* ---------- Barra de estado ---------- */
+.barra-estado {
+    -fx-background-color: -color-superficie;
+    -fx-border-color: -color-borde transparent transparent transparent;
+    -fx-padding: 8px 20px;
+}
+
+.mensaje {
+    -fx-font-weight: bold;
+}

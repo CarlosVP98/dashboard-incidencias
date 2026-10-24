@@ -1,0 +1,11 @@
+# Carpeta donde Maven compila el proyecto (se genera sola, no se sube)
+target/
+
+# Configuración personal de los editores
+.vscode/
+.idea/
+*.iml
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
