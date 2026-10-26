@@ -6,7 +6,7 @@ Permite el filtrado por: Nombre, ID, Descripcion y Estado.
 Tambien permite el registro de nuevas incidencias
 
 
-### <ins>Funcionalidades</ins>
+## <ins>Funcionalidades</ins>
 **Indicadores:** Muestra el total de incidencias abiertas, totales, en proceso y resueltas.
 
 **Listado:** Muestra una lista con todas las incidencias.
