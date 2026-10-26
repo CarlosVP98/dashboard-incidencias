@@ -48,11 +48,11 @@ import javafx.stage.Stage;
  * código sea fácil de leer, cada zona del wireframe se crea en su propio
  * método:
  *
- *   crearCabecera()      -> zona ① título y botón "Nueva incidencia"
- *   crearIndicadores()   -> zona ② las 4 tarjetas con contadores
- *   crearBarraFiltros()  -> zona ③ búsqueda y filtro por estado
- *   crearZonaCentral()   -> zona ④ tabla + panel de detalle
- *   crearBarraEstado()   -> zona ⑤ mensajes de feedback
+ *   crearCabecera()      -> zona título y botón "Nueva incidencia"
+ *   crearIndicadores()   -> zona las 4 tarjetas con contadores
+ *   crearBarraFiltros()  -> zona búsqueda y filtro por estado
+ *   crearZonaCentral()   -> zona tabla + panel de detalle
+ *   crearBarraEstado()   -> zona mensajes de feedback
  *
  * FASE 2: solo estructura visual. Los botones y filtros todavía no hacen
  * nada; la funcionalidad se añade en la Fase 3.
