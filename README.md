@@ -6,7 +6,7 @@ Permite el filtrado por: Nombre, ID, Descripcion y Estado.
 Tambien permite el registro de nuevas incidencias
 
 
-### Funcionalidades
+### <ins>Funcionalidades</ins>
 **Indicadores:** Muestra el total de incidencias abiertas, totales, en proceso y resueltas.
 
 **Listado:** Muestra una lista con todas las incidencias.
@@ -22,7 +22,7 @@ Tambien permite el registro de nuevas incidencias
 **Mensaje de confirmación:** Al realizar cualquier acción, salta un mensaje abajo a la izquierda indicando la modificación.
 
 
-### Requisitos
+### <ins>Requisitos</ins>
 **JDK 25 o superior** (Probado con JDK 27).
 
 **Maven 3.9 o superior**.
@@ -32,7 +32,3 @@ Tambien permite el registro de nuevas incidencias
 **Scene builder** para editar `dashboard.fxml` (Opcional).
 
 JavaFX no hace falta instalarlo, Maven descarga automaticamente la version 27.
-
-
-
-### <ins>Mi título</ins>
