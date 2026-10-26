@@ -32,3 +32,7 @@ Tambien permite el registro de nuevas incidencias
 **Scene builder** para editar `dashboard.fxml` (Opcional).
 
 JavaFX no hace falta instalarlo, Maven descarga automaticamente la version 27.
+
+
+
+### <ins>Mi título</ins>
