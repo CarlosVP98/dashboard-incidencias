@@ -1,44 +1,57 @@
    git clone https://github.com/CarlosVP98/dashboard-incidencias.git
    cd dashboard-incidencias
-# Dashboard de Gestion de Incidencias
+# Dashboard de Gestión de Incidencias
 
-Es una aplicacion de escritorio desarrollado en JavaFX diseñado para la gestion de incidencias de una empresa.
-Permite ver el numero de incidencias que hay, estado, prioridad y una breve descripcion de la incidencia.
-Permite el filtrado por: Nombre, ID, Descripcion y Estado.
-Tambien permite el registro de nuevas incidencias
+Aplicación de escritorio desarrollada en JavaFX para la gestión de incidencias de una empresa.
+Permite ver cuántas incidencias hay, su estado, prioridad y una breve descripción.
+Se pueden filtrar por texto y por estado, y también registrar nuevas incidencias.
 
+![Captura de la aplicación](capturas/version-final.png)
 
 ## <ins>Funcionalidades</ins>
-**Indicadores:** Muestra el total de incidencias abiertas, totales, en proceso y resueltas.
 
-**Listado:** Muestra una lista con todas las incidencias.
+**Indicadores:** Muestra el total de incidencias, y cuántas están abiertas, en proceso y resueltas.
 
-**Detalle:** Muestra el detalle de todas las incidencias al clicar en ellas.
+**Listado:** Muestra una tabla con todas las incidencias.
 
-**Búsqueda por texto:** Puedes buscar por texto y filtrar por estado.
+**Detalle:** Al hacer clic en una incidencia se muestran todos sus datos.
 
-**Cambio de estado:** Al clicar en la incidencia puedes actualizar el estado.
+**Búsqueda por texto:** Puedes buscar por título, descripción o categoría, y filtrar por estado.
 
-**Alta de incidencia:** Al crear una incidencia valida que estén todos los campos obligatorios.
+**Cambio de estado:** Al seleccionar una incidencia puedes actualizar su estado.
 
-**Mensaje de confirmación:** Al realizar cualquier acción, salta un mensaje abajo a la izquierda indicando la modificación.
+**Alta de incidencia:** Al crear una incidencia se valida que estén todos los campos obligatorios.
 
+**Mensaje de confirmación:** Al realizar cualquier acción aparece un mensaje abajo a la izquierda indicando el cambio.
 
 ## <ins>Requisitos</ins>
-**JDK 25 o superior** (Probado con JDK 27).
 
-**Maven 3.9 o superior**.
+**JDK 25 o superior** (probado con JDK 27).
+
+**Maven 3.9 o superior.**
 
 **Git** para descargar el proyecto.
 
-**Scene builder** para editar `dashboard.fxml` (Opcional).
+**Scene Builder** para editar `dashboard.fxml` (opcional).
 
-JavaFX no hace falta instalarlo, Maven descarga automaticamente la version 27.
+JavaFX no hace falta instalarlo: Maven descarga automáticamente la versión 27.
 
-**Enlaces de descargas:**
+**Enlaces de descarga:**
 
-**JDK:** https://www.oracle.com/java/technologies/downloads/
+- **JDK:** https://www.oracle.com/java/technologies/downloads/
+- **Maven:** https://maven.apache.org/download.cgi
+- **Scene Builder:** https://gluonhq.com/products/scene-builder/
 
-**Maven:** https://maven.apache.org/download.cgi
+## <ins>Cómo ejecutarlo</ins>
 
-**Scene Builder:** https://gluonhq.com/products/scene-builder/
+```bash
+git clone https://github.com/CarlosVP98/dashboard-incidencias.git
+cd dashboard-incidencias
+mvn javafx:run
+```
+
+## <ins>Notas</ins>
+
+La aplicación no usa base de datos: arranca siempre con una lista de incidencias de ejemplo y los cambios se pierden al cerrarla.
+
+Más información sobre el diseño del proyecto en la carpeta [`docs`](docs).
