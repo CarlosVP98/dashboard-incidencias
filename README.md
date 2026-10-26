@@ -36,6 +36,6 @@ Tambien permite el registro de nuevas incidencias
 JavaFX no hace falta instalarlo, Maven descarga automaticamente la version 27.
 
 **Enlaces de descargas:**
-**JDK:** https://www.oracle.com/java/technologies/downloads/
+**JDK:** https://www.oracle.com/java/technologies/downloads/ 
 **Maven:** https://maven.apache.org/download.cgi 
 **Scene builder:** https://gluonhq.com/products/scene-builder/
