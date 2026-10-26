@@ -1,5 +1,3 @@
-   git clone https://github.com/CarlosVP98/dashboard-incidencias.git
-   cd dashboard-incidencias
 # Dashboard de Gestión de Incidencias
 
 Aplicación de escritorio desarrollada en JavaFX para la gestión de incidencias de una empresa.
