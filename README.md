@@ -20,3 +20,15 @@ Tambien permite el registro de nuevas incidencias
 **Alta de incidencia:** Al crear una incidencia valida que estén todos los campos obligatorios.
 
 **Mensaje de confirmación:** Al realizar cualquier acción, salta un mensaje abajo a la izquierda indicando la modificación.
+
+
+### Requisitos
+**JDK 25 o superior** (Probado con JDK 27).
+
+**Maven 3.9 o superior**.
+
+**Git** para descargar el proyecto.
+
+**Scene builder** para editar `dashboard.fxml` (Opcional).
+
+JavaFX no hace falta instalarlo, Maven descarga automaticamente la version 27.
