@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="raiz" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.dam.di.incidencias.DashboardController">
+
+    <!-- Parte de arriba: cabecera, indicadores y filtros -->
+    <top>
+        <VBox styleClass="zona-superior">
+
+            <HBox alignment="CENTER_LEFT" styleClass="cabecera">
+                <Label styleClass="titulo-app" text="Gestión de incidencias" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnNueva" onAction="#abrirFormularioNueva" styleClass="boton-principal" text="+ Nueva incidencia">
+               <tooltip>
+                  <Tooltip text="Abre el formulario para registrar una incidencia" />
+               </tooltip></Button>
+            </HBox>
+
+            <HBox styleClass="indicadores">
+                <VBox maxWidth="Infinity" styleClass="kpi-tarjeta, kpi-total" HBox.hgrow="ALWAYS">
+                    <Label styleClass="kpi-texto" text="TOTAL">
+                  <tooltip>
+                     <Tooltip text="Aqui se muestran el numero de incidencias totales" />
+                  </tooltip></Label>
+                    <Label fx:id="lblTotal" styleClass="kpi-valor" text="0" />
+                </VBox>
+                <VBox maxWidth="Infinity" styleClass="kpi-tarjeta, kpi-abiertas" HBox.hgrow="ALWAYS">
+                    <Label styleClass="kpi-texto" text="● ABIERTAS">
+                  <tooltip>
+                     <Tooltip text="Aqui solo se muestran el total de incidencias abiertas" />
+                  </tooltip></Label>
+                    <Label fx:id="lblAbiertas" styleClass="kpi-valor" text="0" />
+                </VBox>
+                <VBox maxWidth="Infinity" styleClass="kpi-tarjeta, kpi-proceso" HBox.hgrow="ALWAYS">
+                    <Label styleClass="kpi-texto" text="◐ EN PROCESO">
+                  <tooltip>
+                     <Tooltip text="Aqui mostramos el total de incidencias en proceso" />
+                  </tooltip></Label>
+                    <Label fx:id="lblEnProceso" styleClass="kpi-valor" text="0" />
+                </VBox>
+                <VBox maxWidth="Infinity" styleClass="kpi-tarjeta, kpi-resueltas" HBox.hgrow="ALWAYS">
+                    <Label styleClass="kpi-texto" text="✔ RESUELTAS">
+                  <tooltip>
+                     <Tooltip text="Aqui mostramos el total de incidencias resueltas" />
+                  </tooltip></Label>
+                    <Label fx:id="lblResueltas" styleClass="kpi-valor" text="0" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" styleClass="barra-filtros">
+                <TextField fx:id="txtBuscar" promptText="Buscar por título, descripción o categoría..." HBox.hgrow="ALWAYS" />
+                <Label text="Estado:" />
+                <ComboBox fx:id="cmbFiltroEstado" />
+                <Button fx:id="btnLimpiar" onAction="#limpiarFiltros" styleClass="boton-secundario" text="Limpiar filtros" />
+            </HBox>
+
+        </VBox>
+    </top>
+
+    <!-- Centro: tabla y panel de detalle -->
+    <center>
+        <SplitPane dividerPositions="0.65" styleClass="zona-central">
+            <TableView fx:id="tabla">
+                <columns>
+                    <TableColumn fx:id="colId" maxWidth="70" prefWidth="50" text="ID" />
+                    <TableColumn fx:id="colTitulo" prefWidth="280" text="Título" />
+                    <TableColumn fx:id="colCategoria" prefWidth="110" text="Categoría" />
+                    <TableColumn fx:id="colPrioridad" prefWidth="90" text="Prioridad" />
+                    <TableColumn fx:id="colEstado" prefWidth="120" text="Estado" />
+                </columns>
+                <placeholder>
+                    <Label text="No hay incidencias que coincidan con la búsqueda" />
+                </placeholder>
+            </TableView>
+
+            <VBox minWidth="260" styleClass="panel-detalle">
+                <Label styleClass="titulo-seccion" text="Detalle de la incidencia" />
+                <Separator />
+
+                <VBox styleClass="detalle-campo">
+                    <Label styleClass="detalle-nombre" text="Título" />
+                    <Label fx:id="lblDetalleTitulo" styleClass="detalle-valor" text="Selecciona una incidencia de la tabla" />
+                </VBox>
+                <VBox styleClass="detalle-campo">
+                    <Label styleClass="detalle-nombre" text="Categoría · Prioridad" />
+                    <Label fx:id="lblDetalleCategoria" styleClass="detalle-valor" text="—" />
+                </VBox>
+                <VBox styleClass="detalle-campo">
+                    <Label styleClass="detalle-nombre" text="Fecha de alta" />
+                    <Label fx:id="lblDetalleFecha" styleClass="detalle-valor" text="—" />
+                </VBox>
+                <VBox styleClass="detalle-campo">
+                    <Label styleClass="detalle-nombre" text="Descripción" />
+                    <Label fx:id="lblDetalleDescripcion" maxWidth="Infinity" styleClass="detalle-valor, detalle-descripcion" text="—" wrapText="true" />
+                </VBox>
+
+                <Separator />
+                <Label styleClass="titulo-seccion" text="Cambiar estado" />
+                <ComboBox fx:id="cmbNuevoEstado" maxWidth="Infinity" promptText="Elige el nuevo estado" />
+                <Button fx:id="btnAplicarEstado" disable="true" maxWidth="Infinity" onAction="#aplicarCambioEstado" styleClass="boton-principal" text="Aplicar cambio">
+               <tooltip>
+                  <Tooltip text="   Cambia el estado de la incidencia seleccionada" />
+               </tooltip></Button>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <!-- Abajo: barra de estado -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="barra-estado">
+            <Label fx:id="lblMensaje" styleClass="mensaje" text="Listo" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lblContador" text="Mostrando 0 de 0 incidencias" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -70,15 +70,32 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 
 ## Entrada 5 — Formulario de nueva incidencia (Fase 3)
 
+> ⚠ Revisar y completar quien hizo el formulario: sobre todo la herramienta, el prompt exacto y lo que se aprendió.
 
 | Campo | Contenido |
 |---|---|
 | **Fecha** | 24/10/2026 |
 | **Problema que queríamos resolver** | Permitir crear una incidencia nueva mediante un formulario, validando los campos obligatorios, y que la tabla, los indicadores y el contador se actualizaran al crearla. |
-| **Herramienta utilizada** | Claude (Anthropic) |
-| **Prompt o consulta realizada** | ¿Cómo puedo hacer una ventana emergente o diálogo en JavaFX para añadir una incidencia nueva? Necesito que pida título, categoría, prioridad y descripción, que compruebe que no estén vacíos antes de cerrarse y que al guardarla se actualice la tabla y los contadores de la pantalla principal. |
+| **Herramienta utilizada** | _(completar)_ |
+| **Prompt o consulta realizada** | _(completar)_ |
 | **Resumen de la respuesta** | Propuso un `Dialog<Incidencia>` modal con los botones "Crear incidencia" y "Cancelar" y un `GridPane` con Título, Categoría, Prioridad (por defecto Media) y Descripción. La validación se hace con un `addEventFilter` sobre el botón de crear: si falta un campo obligatorio, se muestra un mensaje con ⚠ y `consume()` evita que el diálogo se cierre. `setResultConverter` construye la incidencia (estado Abierta, fecha de hoy, id = mayor id + 1). Al añadirla, se limpian los filtros si la ocultan y se selecciona en la tabla. Añadió estilos para el diálogo en `styles.css`. |
-| **Qué parte utilizamos** | La estructura básica de la clase Dialog con un contenedor tipo GridPane para colocar los campos de texto y los desplegables de manera ordenada. |
-| **Qué modificamos** | Cambiamos los nombres de los campos y las opciones de los ComboBox (categorías y prioridades) para que encajaran exactamente con los nombres de las variables y enumerados que ya teníamos creados en nuestro proyecto. |
-| **Cómo validamos la respuesta** | Probamos a darle al botón de crear dejando campos vacíos para comprobar que saltaba el aviso y la ventana no se cerraba. |
-| **Qué hemos aprendido** | A ver cómo funcionan los diálogos modales y para qué sirve bloquear la pantalla con showAndWait(). |
+| **Qué parte utilizamos** | _(completar)_ |
+| **Qué modificamos** | _(completar)_ |
+| **Cómo validamos la respuesta** | _(completar: p. ej. intentamos crear sin título / sin categoría / sin descripción y comprobamos que no deja y avisa; creamos una válida y comprobamos que aparece seleccionada, que TOTAL y ABIERTAS suben 1 y que el contador pasa a "Mostrando 13 de 13")_ |
+| **Qué hemos aprendido** | _(completar: p. ej. qué es un diálogo modal, para qué sirve `showAndWait()`, cómo `consume()` cancela un evento, para qué sirve `setResultConverter`)_ |
+
+---
+
+## Entrada 6 — Refactorización a FXML (Fase 4)
+
+| Campo | Contenido |
+|---|---|
+| **Fecha** | 26/10/2026 |
+| **Problema que queríamos resolver** | Pasar la interfaz programática a FXML, separando estructura (FXML), presentación (CSS) y comportamiento (controlador). |
+| **Herramienta utilizada** | Claude (Anthropic) |
+| **Prompt o consulta realizada** | Le pasamos nuestros apuntes de la Unidad 1 (apartado 13, FXML) y le preguntamos qué podíamos hacer con FXML en el proyecto. Después le pedimos un FXML básico basado en nuestra aplicación. |
+| **Resumen de la respuesta** | Relacionó cada método `crear...()` de `App.java` con un bloque del FXML. Generó `dashboard.fxml` (BorderPane con `fx:id` en los controles y `onAction` en los botones), `DashboardController.java` con los atributos `@FXML` y un método `initialize()` para lo que FXML no puede hacer (datos, columnas, listeners), y una `App.java` que solo carga el FXML con `FXMLLoader`. Añadió la dependencia `javafx-fxml` al `pom.xml`. El formulario de nueva incidencia se mantuvo en Java. |
+| **Qué parte utilizamos** | _(completar)_ |
+| **Qué modificamos** | _(completar: cambios hechos con Scene Builder, p. ej. conectar "Limpiar filtros" con `limpiarFiltros`, tooltips, textos, anchos...)_ |
+| **Cómo validamos la respuesta** | _(completar: p. ej. ejecutamos con `mvn javafx:run` y comprobamos que todo funcionaba igual que la versión programática)_ |
+| **Qué hemos aprendido** | _(completar)_ |
