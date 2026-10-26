@@ -22,7 +22,7 @@ Tambien permite el registro de nuevas incidencias
 **Mensaje de confirmación:** Al realizar cualquier acción, salta un mensaje abajo a la izquierda indicando la modificación.
 
 
-### <ins>Requisitos</ins>
+## <ins>Requisitos</ins>
 **JDK 25 o superior** (Probado con JDK 27).
 
 **Maven 3.9 o superior**.
