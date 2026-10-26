@@ -103,7 +103,7 @@
     <text x="950" y="197">② TOP – indicadores (HBox de 4 tarjetas)</text>
     <text x="950" y="285">③ TOP – búsqueda y filtro (HBox)</text>
     <text x="950" y="500">④ CENTER – tabla + detalle (SplitPane)</text>
-    <text x="950" y="922">⑤ BOTTOM – barra de estado / feedback</text>
+    <text x="40" y="978">⑤ BOTTOM – barra de estado / feedback</text>
   </g>
 
   <!-- ===================== DIÁLOGO NUEVA INCIDENCIA ===================== -->
