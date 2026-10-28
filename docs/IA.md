@@ -8,11 +8,11 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 
 | Campo | Contenido |
 |---|---|
-| **Fecha** | 24/10/2026 |
+| **Fecha** | 21/10/2026 |
 | **Problema que queríamos resolver** | Preparar el equipo para el proyecto: qué instalar (Git, Scene Builder, extensiones de VS Code) y cómo crear el repositorio en GitHub. |
 | **Herramienta utilizada** | Claude (Anthropic) |
 | **Prompt o consulta realizada** | Le pasamos el PDF de la tarea y le preguntamos qué necesitábamos instalar con VS Code y Java 27, enseñándole capturas de los errores de la terminal. |
-| **Resumen de la respuesta** | Nos indicó instalar "Extension Pack for Java" en VS Code, Git for Windows y Scene Builder de Gluon. También nos dijo que JavaFX 27 lo descarga Maven automáticamente y nos explicó cómo crear el repositorio en GitHub vacío (sin README) para evitar conflictos. |
+| **Resumen de la respuesta** | Nos indicó instalar "Extension Pack for Java" en VS Code, que ya lo habíamos hecho en el anteror proyecto de gestión de tareas así que no hizo falta, Git for Windows y Scene Builder de Gluon. También nos dijo que JavaFX 27 lo descarga Maven automáticamente y nos explicó cómo crear el repositorio en GitHub vacío (sin README) para evitar conflictos. |
 | **Qué parte utilizamos** | Todos los pasos de instalación y la creación del repositorio. |
 | **Qué modificamos** | Nada. |
 | **Cómo validamos la respuesta** | Ejecutamos `mvn -v` y `git --version` en la terminal y comprobamos que respondían con la versión. `git --version` falló al principio porque Git no estaba instalado; tras instalarlo y reabrir VS Code ya funcionó. Comprobamos que el repositorio aparecía en GitHub. |
@@ -24,10 +24,10 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 
 | Campo | Contenido |
 |---|---|
-| **Fecha** | 24/10/2026 |
+| **Fecha** | 21/10/2026 |
 | **Problema que queríamos resolver** | Diseñar la distribución de la pantalla antes de programar y justificar las decisiones. |
 | **Herramienta utilizada** | Claude (Anthropic) |
-| **Prompt o consulta realizada** | Le pedimos que hiciera el wireframe de baja fidelidad y las decisiones de diseño a partir de los requisitos del PDF, explicando el porqué de cada una. |
+| **Prompt o consulta realizada** |Ya que no sabíamos ni se nos ocurría una forma visual para representar el gestor de incidencias, le pedimos nos generase una imagen orientativa del wireframe de baja fidelidad y las decisiones de diseño a partir de los requisitos del PDF, explicando el porqué de cada una. |
 | **Resumen de la respuesta** | Propuso una ventana con `BorderPane`: indicadores arriba, búsqueda y filtro, tabla con panel de detalle en el centro (`SplitPane`) y barra de estado abajo. El alta de incidencias va en un diálogo modal. Justificó 9 decisiones (jerarquía visual, `TableView` frente a `ListView`, accesibilidad sin depender del color, feedback, CSS...). |
 | **Qué parte utilizamos** | El wireframe completo y las 9 decisiones de diseño. |
 | **Qué modificamos** | El wireframe no lo cambiamos antes de programar. Durante la implementación ajustamos el formulario de alta (campos obligatorios, prioridad por defecto, nombre del botón) y lo justificamos en la decisión 7 como "cambio respecto al diseño inicial". También añadimos las decisiones 10 a 13, que surgieron al programar. Al pasar el wireframe a PNG vimos que el recuadro del diálogo tapaba la etiqueta de la zona ⑤ y la movimos. |
@@ -105,11 +105,11 @@ Registro de los usos relevantes de herramientas de IA durante el proyecto, segú
 | Campo | Contenido |
 |---|---|
 | **Fecha** | 26/10/2026 |
-| **Problema que queríamos resolver** | Preparar la documentación de entrega: la reflexión sobre FXML, las capturas, el wireframe en PNG y el README. |
+| **Problema que queríamos resolver** | Preparar la documentación de entrega: la reflexión sobre FXML, las capturas, el wireframe en PNG, el README y el registro de uso de IA. |
 | **Herramienta utilizada** | Claude (Anthropic) |
-| **Prompt o consulta realizada** | Le preguntamos cómo se suele hacer un README y le pedimos borradores de `reflexion-fxml.md` y del `README.md` basados en nuestro proyecto. También le pedimos que completara este registro con lo que habíamos hecho en cada fase. |
-| **Resumen de la respuesta** | Nos explicó las secciones habituales de un README y redactó uno con descripción, funcionalidades, requisitos, cómo ejecutarlo, estructura, tecnologías y autores. Redactó la reflexión respondiendo a las 8 preguntas con ejemplos de nuestro código y una tabla comparando la versión programática con la FXML. Convirtió el wireframe a PNG. |
-| **Qué parte utilizamos** | El README, la reflexión y el wireframe en PNG. La captura de la versión programática es nuestra, de cuando la probamos, y la de la versión final la hicimos nosotros. |
-| **Qué modificamos** | Completamos en la reflexión los cambios hechos en Scene Builder y nuestra experiencia (preguntas 7 y 8). En el README añadimos el nombre del compañero y revisamos que los mensajes de commit de la tabla coincidieran con los nuestros (`git log --oneline`). |
-| **Cómo validamos la respuesta** | Revisamos el README con la vista previa de VS Code (Ctrl + Shift + V) para comprobar que la captura y los enlaces se veían bien. Comprobamos que la estructura de carpetas del README coincidía con la del proyecto y que las respuestas de la reflexión se correspondían con nuestro código. |
-| **Qué hemos aprendido** | Qué secciones debe tener un README y que lo más importante es que alguien pueda ejecutar el proyecto sin preguntar nada. Que las imágenes en Markdown se enlazan con ruta relativa para que GitHub las muestre. |
+| **Prompt o consulta realizada** | Le preguntamos cómo se suele hacer un README para GitHub, el formato que suele tenery le pedimos borradores de `reflexion-fxml.md` y del `README.md` basados en nuestro proyecto. También le pedimos que completara este registro con lo que habíamos hecho en cada fase. |
+| **Resumen de la respuesta** |Nos explicó que los ficheros de tipo texto suelen ir en formato .md en vez de .txt para que se puedan abrir en el editor de texto y código, en este caso VS Code, y los "caratceres" que se pueden utilizar para que ciertas palabras o secciones del texto se puedan representar de distinta forma (en negrita, en cursiva, separación con lineas entre secciones, introducir el código en tablas, etc...) .Nos explicó las secciones habituales de un README y redactó uno con descripción, funcionalidades, requisitos, cómo ejecutarlo, estructura, tecnologías y autores. Redactó la reflexión respondiendo a las 8 preguntas con ejemplos de nuestro código y una tabla comparando la versión programática con la FXML. Convirtió el wireframe a PNG. |
+| **Qué parte utilizamos** | El README, la reflexión y el wireframe en PNG. La captura de la versión programática es nuestra, de cuando la probamos, y la de la versión final la hicimos nosotros. El archivo de IA revisado y refinado por Claude a partir de nuestro archivo original de registros para la presentación.|
+| **Qué modificamos** | Completamos en la reflexión los cambios hechos en Scene Builder y nuestra experiencia (preguntas 7 y 8).Le pasamos el archivo de registro de IA que teníamos para documentar las entradas de uso de la misma para que revisase la estructura y nos dijera cómo modificarlo de manera visual para resaltar palabras, separar secciones e introducir los detalles de cada entrada de uso de la IA en distintas tablas, eseparadas en filas y columnas para que visualmente sea más "bonito" En el README añadimos el nombre del compañero y revisamos que los mensajes de commit de la tabla coincidieran con los nuestros (`git log --oneline`). |
+| **Cómo validamos la respuesta** | Revisamos el README con la vista previa de VS Code (Ctrl + Shift + V) para comprobar que la captura y los enlaces se veían bien. Comprobamos que la estructura de carpetas del README coincidía con la del proyecto y que las respuestas de la reflexión se correspondían con nuestro código. También comprobamos el documendo de registros de la IA para que reflejase de forma correcta nuestras consultas y mostrase la información de forma clara, concisa y visualmente agradable y profesional.|
+| **Qué hemos aprendido** | Qué secciones debe tener un README y que lo más importante es que alguien pueda ejecutar el proyecto sin preguntar nada. Que las imágenes en Markdown se enlazan con ruta relativa para que GitHub las muestre. Y el formato de presentación o escritura en texto literal para su visualización en entronos de desarrollo y páginas web (GitHub).|
